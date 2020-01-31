@@ -15,12 +15,20 @@ from tf_model import VAE
 def onehot(data, min_length):
     return np.bincount(data, minlength=min_length)
 
+class StrToBytes:
+    def __init__(self, fileobj):
+        self.fileobj = fileobj
+    def read(self, size):
+        return self.fileobj.read(size).encode()
+    def readline(self, size=-1):
+        return self.fileobj.readline(size).encode()
+
 dataset_tr = 'data/20news_clean/train.txt.npy'
-data_tr = np.load(dataset_tr)
+data_tr = np.load(dataset_tr, allow_pickle=True, encoding="latin1")
 dataset_te = 'data/20news_clean/test.txt.npy'
-data_te = np.load(dataset_te)
+data_te = np.load(dataset_te, allow_pickle=True, encoding="latin1")
 vocab = 'data/20news_clean/vocab.pkl'
-vocab = pickle.load(open(vocab,'r'))
+vocab = pickle.load(StrToBytes(open(vocab,'r')))
 vocab_size=len(vocab)
 #--------------convert to one-hot representation------------------
 print('Converting data to one-hot representation')
