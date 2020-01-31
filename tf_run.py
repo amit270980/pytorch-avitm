@@ -96,7 +96,7 @@ def train(network_architecture, minibatches, type='prodlda',learning_rate=0.001,
         total_batch = int(n_samples_tr / batch_size)
         # Loop over all batches
         for i in range(total_batch):
-            batch_xs = minibatches.next()
+            batch_xs = minibatches.__next__()
             # Fit training using batch data
             cost,emb = vae.partial_fit(batch_xs)
             # Compute average loss
@@ -188,7 +188,7 @@ def main(argv):
     print(network_architecture)
     print(opts)
     vae,emb = train(network_architecture, minibatches,m, training_epochs=e,batch_size=batch_size,learning_rate=learning_rate)
-    print_top_words(emb, zip(*sorted(vocab.items(), key=lambda x: x[1]))[0])
+    print_top_words(emb, next(zip(*sorted(vocab.items(), key=lambda x: x[1]))))
     print_perp(vae)
 
 if __name__ == "__main__":
