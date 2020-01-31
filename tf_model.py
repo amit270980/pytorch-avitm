@@ -24,7 +24,7 @@ class VAE(object):
         self.transfer_fct = transfer_fct
         self.learning_rate = learning_rate
         self.batch_size = batch_size
-        print 'Learning Rate:', self.learning_rate
+        print('Learning Rate:', self.learning_rate)
 
         # tf Graph input
         self.x = tf.placeholder(tf.float32, [None, network_architecture["n_input"]], name='input')
@@ -78,7 +78,7 @@ class VAE(object):
 
         self.x_reconstr_mean = tf.nn.softmax(slim.layers.batch_norm(decoded, scope='BN_decoder'))                    # softmax(bn(50->1995))
 
-        print self.x_reconstr_mean
+        print(self.x_reconstr_mean)
 
     def _create_loss_optimizer(self):
 
